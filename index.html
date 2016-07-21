@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+   Trivia
+  </title>
+  <link type="text/css" rel="stylesheet" href="assets\css\style.css"/>
+  
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+<!-- header showing the name of the project -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" id='top'>
+                    
+                    <div class="intro-text">
+                        <span class="name"><h1>Trivia</h1></span>	
+                        <span class="name"><h4>Quentin Tarantino Edition</h4></span>
+                        <hr class="star-light">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<button id='start'>PLAY</button>
+    <!-- Jumbotron that will display the scores and the images -->
+<div class="jumbotron">
+  <div class="container" id="picContainer">
+    	
+ <div class="row">
+      <div class="col-xs-8 col-sm-6">
+        <div id='question'>Press play if your ready?</div>
+        <!-- <button id='start'>PLAY</button> -->
+      </div>
+      <div class="col-xs-4 col-sm-6">
+        <div class='button' id="buttons0"></div>
+        <div class='button' id="buttons1"></div>
+        <div class='button' id="buttons2"></div>
+        <div class='button' id="buttons3"></div>
+        <div id = 'picture'></div>
+      </div>
+    </div>
+</div>
+		
+<!-- <button id='start'>PLAY</button>		 -->
+<!-- Jumbotron ends -->
+<!-- <button id='start'>PLAY</button> -->
+</div>
+
+</div>
+
+<div id='bottom'>
+  <div id= 'scoreboard'>
+      <!-- <button id='start'>PLAY</button> -->
+      <div ><h3><span id='showTime'>20</span> Seconds</h3></div>
+      <div id='scoreCorrect'><h3>Correct: <span id="updateCorrect">0</span></h3></div>
+      <div id='scoreWrong'><h3>Wrong: <span id="updateWrong">0</span></h3></div>
+  </div> 
+</div>
+
+
+
+</div>
+
+<!-- jquery begins -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+var correct = 0;
+var wrong =0;
+counter = 20
+rounds = 0
+
+
+var questions = [{
+  question: "In the breakfast scene in Pulp fiction, who does Jules reference to having 'the big brain'",  
+  answers: ["Ringo", "Brad", "Vincent", "Marsellus"],
+  correctAnswer: "Brad",
+  image: "brad.jpg"
+},
+
+{
+  question: "What is the Black Mamba's (played by Uma Thurman) actual name in the Kill Bill movies", 
+  answers: ["Beatrix Kiddo", "Bettie Clam", "Samantha Knighty", "Olga Klumpes"],
+  correctAnswer: "Beatrix Kiddo"
+},
+
+{
+  question: "In the opening restaurant scene of Reservoir Dogs, what does Mr. Pink not want to do?", 
+  answers: ["Sing", "Give a Tip", "Fight", "Call His Mom"],
+  correctAnswer: "Give a Tip"
+},
+// question 4
+{
+  question: "What is Kurt Russel's alias in the movie Hateful Eight?",
+  answers: ["The Mexican", "The Sheriff", "The Hangman", "The Bounty Hunter"],
+  correctAnswer: "The Hangman"
+},
+// question 5
+{
+  question: "In Inglorious Bastards, what is the name of the movie that is premiering at the cinama?",
+  answers: ["The Way Home", "Glorious Day", "A Long Day For My Country", "Nations Pride"],
+  correctAnswer: "Nations Pride"
+},
+// question 6
+{
+  question: "What technique did Pai Mie secretly teach the Black Mamba that helped her kill Bill?",
+  answers: ["Karate Chop of Death", "Five Point Palm Exploding Heart", "Roundhouse Kick of Justice", "The Ending Eye Gauge" ],
+  correctAnswer: "Five Point Palm Exploding Heart"
+},
+// question 7
+{
+  question: "What is the name of the brothers that Django and Dr Schultz are hunting down in Django Unchained?",
+  answers: ["Brittle Brothers", "Wayne Brothers", "Captain Brothers", "Taylor Brothers"],
+  correctAnswer: "Brittle Brothers"
+},
+  // question 8
+{
+  question: "What Quentin Terantino movie has the highest rating on Rotten Tomatoes?",
+  answers: ["Hateful Eight", "Inglorious Bastards", "Pulp Fiction", "Django Unchained"],
+  correctAnswer: "Pulp Fiction"
+},
+// question 9
+{
+  question: "What Actor has appeared or been a part of the most Quentin Terantino movies?",
+  answers: ["Samuel L Jackson", "Harvey Keitel", "Tim Roth", "Zoe Bell" ],
+  correctAnswer: "Samuel L Jackson"
+},
+// question 10
+{
+  question: "Which of Quentin Terantino's eight major motion pictures had the biggest budget as well as biggest box office return?",
+  answers: ["Kill Bill Vol 1", "Inglorious Bastards", "Hateful Eight", "Django Unchained"],
+  correctAnswer: "Django Unchained"
+}]
+
+// ends the array questions
+  
+
+
+//begins trivia object
+var trivia = {
+	
+	clock: 
+	function clockCount(){
+	var loops = 0;
+	loops++;
+	console.log(loops+"loops");
+	if (loops < 9){setInterval(function(){trivia.timer()}, 1000)}},
+	
+	timer: 
+	function countdown(){
+
+//sets countdown
+	
+		
+	if(counter>0){
+
+	counter --;
+	$("#showTime").html(counter);
+	console.log(counter);
+	}
+	else if (counter == 0 && rounds >= 9){
+      console.log('no change');
+
+
+  }
+
+
+    else {
+     // checks if time runs out. Adds to the wrong count
+          wrong++;
+          rounds++;
+          counter = 21;
+          document.getElementById("updateWrong").innerHTML = wrong; 
+          trivia.ask(questions[rounds].question);
+          trivia.choices(questions[rounds].answers, questions[rounds].correctAnswer);
+
+	}
+	} ,  //end of timer
+
+
+	ask:
+	  // creates question from array questions.question
+
+  	function first(x){
+  	      document.getElementById("question").innerHTML =	
+		x
+		console.log(x);
+	 }, //end of ask functions
+	
+  // picture pops up
+ images:
+
+   function pics(w){
+
+     $('.button').on('click', function(){
+       var correctPic = $('<img>');
+
+      // imageCrystal.attr('data-num', numbers[i]);
+      correctPic.attr('src', 'assets/images/'+w);
+
+       correctPic.attr('alt', 'crytals');
+
+      correctPic.addClass('pics');
+     
+        $('#picture').html(correctPic);
+      var remove = setTimeout(function(){$('#picture').html()}, 3000);
+	console.log('hello world');
+      			
+
+      
+       });
+     },
+
+
+	
+	choices:
+	//creates answer choices from array questions.answers
+
+	    function second (y, z){
+
+	var options = y
+
+   
+      	 for(i=0; i< 4; i++){
+      		var b = $("<buttons>");
+         	b.addClass('option-button');
+        	b.attr('data-let', options[i]);
+       		b.text(options[i]);
+        	$('#buttons').append(b);
+	       	$('#buttons'+[i]).html(b);
+
+
+	     }
+
+	      $('.option-button').click(function() {
+	         pick = ($(this).attr("data-let"));  
+	           console.log('click');
+ 	        });
+
+        	 $('.option-button').bind('click', function() {
+	        $(this).unbind('click').animate({opacity: '0.3'});
+
+
+            //updates score 
+
+       		if(pick == z && rounds < 9){
+         	
+         	correct++;
+		      rounds++;
+		      counter = 21;
+         	document.getElementById("updateCorrect").innerHTML = correct;
+          trivia.ask(questions[rounds].question);
+		      trivia.choices(questions[rounds].answers, questions[rounds].correctAnswer);
+  			
+      		 }
+		
+      else if (pick == z && rounds === 9){
+        correct++;
+        document.getElementById("updateCorrect").innerHTML = correct;
+        // rounds++
+     
+        alert('Lets Check the results');
+        trivia.results(correct);
+      } 
+
+		
+       		else if (pick !== z && rounds < 9){
+         	console.log("wrong");
+        	wrong++;
+		      rounds++;
+		      counter = 21;
+         	document.getElementById("updateWrong").innerHTML = wrong; 
+		      trivia.ask(questions[rounds].question);
+		      trivia.choices(questions[rounds].answers, questions[rounds].correctAnswer);
+		 	
+    	 }
+
+
+        else if (pick !== z && rounds === 9){
+        wrong++;
+
+        document.getElementById("updateWrong").innerHTML = wrong;
+        // rounds++;
+ 
+        alert('Lets Check the results');
+	trivia.results(correct);
+      } 
+  
+        
+
+ });
+
+   },  //end of choices function
+	
+
+	//Shows results.
+	results:
+		function outcome(q){
+
+
+		if(correct == 10){
+
+		document.getElementById("question").innerHTML =	
+		q + " " +"answers correct! You Really know your Quentin Tarantino Trivia. I am going to start calling you the Black Mamba."
+
+		document.getElementById("buttons0").innerHTML =	
+		"Trivia Level:"
+
+		document.getElementById("buttons1").innerHTML =	
+		"Hall of Fame"
+
+		document.getElementById("buttons2").innerHTML =	
+		""
+
+		document.getElementById("buttons3").innerHTML =	
+		""
+		}
+	
+		else if (correct < 10 && correct > 7){
+		document.getElementById("question").innerHTML =	
+		q + " " +"answers correct! Not bad at all.  Your no Black Mamba, but you can still be a part of the Deadly Viper Assassination Squad"
+
+		document.getElementById("buttons0").innerHTML =	
+		""		
+
+		document.getElementById("buttons1").innerHTML =	
+		""
+
+		document.getElementById("buttons2").innerHTML =	
+		""
+
+		document.getElementById("buttons3").innerHTML =	
+		""
+
+
+		}
+		else if (correct < 8 && correct >4){
+		document.getElementById("question").innerHTML =	
+		q + " " +"answers correct! Maybe a year training with Pai Mie will make your stronger."
+
+		document.getElementById("buttons0").innerHTML =	
+		""		
+
+		document.getElementById("buttons1").innerHTML =	
+		""
+
+		document.getElementById("buttons2").innerHTML =	
+		""
+
+		document.getElementById("buttons3").innerHTML =	
+		""
+
+
+		} 
+		
+		else if (correct < 5 && correct > 1){
+		document.getElementById("question").innerHTML =	
+		"Only" + " " +q + " " +"answers correct? Maybe you should play a Gilmore Girls trivia game instead."
+
+		document.getElementById("buttons0").innerHTML =	
+		""		
+
+		document.getElementById("buttons1").innerHTML =	
+		""
+
+		document.getElementById("buttons2").innerHTML =	
+		""
+
+		document.getElementById("buttons3").innerHTML =	
+		""
+
+		} 
+
+		else{
+		document.getElementById("question").innerHTML =	
+		"Really?" + " " +q + " " +"correct answer? Just Stop.  Go Home and think about what you just did.  "
+		
+	
+		document.getElementById("buttons0").innerHTML =	
+		""		
+
+		document.getElementById("buttons1").innerHTML =	
+		""
+
+		document.getElementById("buttons2").innerHTML =	
+		""
+
+		document.getElementById("buttons3").innerHTML =	
+		""
+		}
+
+
+}
+
+
+
+//end of trivia array	
+}
+
+
+
+//start button
+ $("#start").click(function(){
+
+
+    $("#start").remove();
+
+//var myVar = setInterval(function(){trivia.timer()}, 1000);
+
+trivia.ask(questions[0].question);
+//trivia.images(questions[0].image);
+trivia.choices(questions[0].answers, questions[0].correctAnswer);
+trivia.clock();
+
+});
+
+
+// reload game function
+$('#reload').click(function(){
+function myFunction() {
+    location.reload();
+}
+});
+
+
+
+
+
+
+});  //closes jquery function
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

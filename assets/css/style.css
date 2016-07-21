@@ -1,0 +1,83 @@
+body{
+
+	background-color: #120F0F;
+}
+
+
+#top{
+	background-color: #120F0F;
+	background-image: url('../images/filmby.jpg');
+	background-repeat: no-repeat;
+	background-position: center; 
+	color: white;
+
+}
+
+.col-xs-8{
+
+	height: 200px;
+}
+
+
+#question{
+
+	background-color: black;
+	color: white;
+	height: 200px;
+	width: 450px;
+	padding: 80px;
+	border-radius: 20px;
+}
+
+#answerOptions{
+
+	/*background-color: blue;*/
+	color: white;
+	height: 200px;
+	width: 450px;
+	padding-left: 80px;
+
+	/*padding-top: 50px;*/
+}
+
+#scoreboard{
+	height: 155px;
+	width: 155px;
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: auto;	
+
+}
+
+.option-button{
+		border: solid white 2px;
+		background-color: red;
+		color: white;
+		display: block;
+		width: 300px;
+		height: 50px;
+		padding-top: 15px;
+		text-align: center;
+		border-radius: 20px;
+
+}
+
+#bottom{
+
+	background-image: url('../images/allfilms.jpg');
+}
+
+#start{
+	background-color: red;
+	color: white;
+	width: 110px;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	}
+
+.pics{
+	width: 225px;
+	height: 225px;
+}
