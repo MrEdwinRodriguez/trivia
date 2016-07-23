@@ -33,6 +33,7 @@
         </div>
     </header>
 <button id='start'>PLAY</button>
+<button id='restart'>Re-Start</button>
     <!-- Jumbotron that will display the scores and the images -->
 <div class="jumbotron">
   <div class="container" id="picContainer">
@@ -81,8 +82,9 @@ $(document).ready(function(){
 
 var correct = 0;
 var wrong =0;
-counter = 20
-rounds = 0
+
+var counter = 20
+var rounds = 0
 
 
 var questions = [{
@@ -156,9 +158,11 @@ var trivia = {
 	clock: 
 	function clockCount(){
 	var loops = 0;
-	loops++;
-	console.log(loops+"loops");
-	if (loops < 9){setInterval(function(){trivia.timer()}, 1000)}},
+
+	if (loops < 9){
+  clockTimer = setInterval(function(){trivia.timer()}, 1000)
+}
+  },
 	
 	timer: 
 	function countdown(){
@@ -217,6 +221,7 @@ var trivia = {
       correctPic.addClass('pics');
      
         $('#picture').html(correctPic);
+        $('#picture').empty();
       var remove = setTimeout(function(){$('#picture').html()}, 3000);
 	console.log('hello world');
       			
@@ -273,7 +278,8 @@ var trivia = {
         document.getElementById("updateCorrect").innerHTML = correct;
         // rounds++
      
-        alert('Lets Check the results');
+        clearInterval(clockTimer);
+        console.log('stop clock')
         trivia.results(correct);
       } 
 
@@ -296,8 +302,11 @@ var trivia = {
         document.getElementById("updateWrong").innerHTML = wrong;
         // rounds++;
  
-        alert('Lets Check the results');
+      
+        clearInterval(clockTimer);
+        console.log('stop clock')
 	trivia.results(correct);
+
       } 
   
         
@@ -403,10 +412,26 @@ var trivia = {
 		""
 		}
 
+    ;
+  },
 
-}
+  restart:
+
+  function startAgain(){
+    correct = 0;
+    wrong =0;
+   count=20;
+    rounds = 0;
+    
+    document.getElementById("updateWrong").innerHTML = 0;
+    document.getElementById("updateCorrect").innerHTML = 0;
+    trivia.ask(questions[0].question);
+trivia.clock();
+trivia.choices(questions[0].answers, questions[0].correctAnswer);
 
 
+
+  }
 
 //end of trivia array	
 }
@@ -414,15 +439,17 @@ var trivia = {
 
 
 //start button
+$('#restart').toggle();
  $("#start").click(function(){
 
 
     $("#start").remove();
+    $('#restart').toggle();
 
 //var myVar = setInterval(function(){trivia.timer()}, 1000);
 
 trivia.ask(questions[0].question);
-//trivia.images(questions[0].image);
+trivia.images(questions[0].image);
 trivia.choices(questions[0].answers, questions[0].correctAnswer);
 trivia.clock();
 
@@ -430,10 +457,8 @@ trivia.clock();
 
 
 // reload game function
-$('#reload').click(function(){
-function myFunction() {
-    location.reload();
-}
+$('#restart').click(function(){
+trivia.restart();
 });
 
 
